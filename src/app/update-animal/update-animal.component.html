@@ -1,0 +1,29 @@
+<div class="container">
+    <div>
+    <h2>Modifier un Animal :</h2>
+    </div>
+    <form >
+    <div  hidden class="col-sm-2 col-md-2 col-lg-2">
+    <label >Numero Animal</label>
+    <input readonly type="text" [(ngModel)]="currentAnimal.numA"
+    name="numA" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4" >
+    <label >Nom Animal</label>
+    <input type="text"[(ngModel)]= "currentAnimal.nomA"
+    name="nomA" class="form-control">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+    <label >Couleur Animal</label>
+    <input type="text" [(ngModel)]= "currentAnimal.couleur" name="couleurAnimal" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+    <label >Date Naissance</label>
+    <input type="date" [ngModel]="currentAnimal.dateNais| date: 'yyyy-MM-dd'"
+    (ngModelChange)=" currentAnimal.dateNais= $event" name="dateNais" class="form-control">
+    </div>
+    <div class="mt-2">
+    <button type="submit" (click)="updateAnimal()" class="btn btn-success">Modifer</button>
+    </div>
+    </form>
+    </div>    
