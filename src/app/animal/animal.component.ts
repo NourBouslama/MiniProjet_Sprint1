@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Animal } from '../model/animal.model';
+import { Animal } from '../model/animal';
 import { AnimalService } from '../services/animal.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProprietaireService } from '../services/proprietaire.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-animal',
@@ -10,18 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AnimalComponent implements OnInit {
   //animals : string[]; //un tableau de chînes de caractères
-  animals : Animal[]; //un tableau de Produit
+  animals : Animal[]; //un tableau d'animal
 
- /* constructor() { 
-   // this.animals = ["michou", "mimi", "macha"];
-   this.animals = [
-    {numA : 1, nomA : "oreo", couleur : "blanche", dateNais : new Date("01/14/2011")},
-    {numA : 2, nomA : "michou",couleur  : "noir", dateNais : new Date("12/17/2010")},
-    {numA : 3, nomA :" macha",  couleur: "multicouleur", dateNais : new Date("02/20/2020")}
-     ];
-  }*/
-  constructor(private animalService: AnimalService,private router :Router ) {
-    //this.animals = animalService.listeAnimal();
+
+  constructor(private animalService: AnimalService,private proprietaireService: ProprietaireService,private router :Router,public authService: AuthService ) {
+
     }
     
     

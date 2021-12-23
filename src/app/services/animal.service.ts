@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Animal } from '../model/animal.model';
+import { Animal } from '../model/animal';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Proprietaire } from '../model/proprietaire';
+import { AuthService } from './auth.service';
 const httpOptions = {
 headers: new HttpHeaders( {'Content-Type': 'application/json'} )
 };
@@ -9,56 +11,47 @@ headers: new HttpHeaders( {'Content-Type': 'application/json'} )
 providedIn: 'root'
 })
 export class AnimalService {
-  apiURL: string = 'http://localhost:8095/animals/api/';
+  apiURL: string = 'http://localhost:8095/animals/api';
 
 animals : Animal[]; //un tableau de Produit
+proprietaire = new Proprietaire();
+animalsRecherche : Animal[]; //un tableau de Produit
+proprietaires : Proprietaire[];
 //animal : Animal;
-constructor(private http : HttpClient) {
-/*this.animals = [
-  {numA : 1, nomA : "oreo", couleur : "blanche", dateNais : new Date("01/14/2011")},
-  {numA : 2, nomA : "michou",couleur  : "noir", dateNais : new Date("12/17/2010")},
-  {numA : 3, nomA :" macha",  couleur: "multicouleur", dateNais : new Date("02/20/2020")}
+constructor(private http : HttpClient, private authService : AuthService) {
 
-];*/
 }
 listeAnimal(): Observable<Animal[]>{
-  return this.http.get<Animal[]>(this.apiURL);
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt})
+  return this.http.get<Animal[]>(this.apiURL+"/all",{headers:httpHeaders}
+);
+
   }
   
-/*listeAnimals():Animal[] {
-  return this.animals;
-}*/
+
 ajouterAnimal( prod: Animal):Observable<Animal>{
-  return this.http.post<Animal>(this.apiURL, prod, httpOptions);
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt}) 
+    return this.http.post<Animal>(this.apiURL, prod, {headers:httpHeaders});
   }
   supprimerAnimal(id : number) {
     const url = `${this.apiURL}/${id}`;
-    return this.http.delete(url, httpOptions);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer "+jwt;
+    let httpHeaders = new HttpHeaders({"Authorization":jwt}) 
+      return this.http.delete(url,  {headers:httpHeaders});
     }
   
-/*ajouterAnimal( prod: Animal){
-this.animals.push(prod);
-}
-supprimerAnimal( prod: Animal){
-  //supprimer le produit prod du tableau produits
-  const index = this.animals.indexOf(prod, 0);
-  if (index > -1) {
-  this.animals.splice(index, 1);
-  }*/
-  //ou Bien
-  /* this.produits.forEach((cur, index) => {
-  if(prod.idProduit === cur.idProduit) {
-  this.produits.splice(index, 1);
-  }
-  }); */
- // }
-  /*consulterAnimal(id:number): Animal{
-    this.animal = this.animals.find(p => p.numA == id);
-    return this.animal;
-    }*/
+
     consulterAnimal(id: number): Observable<Animal> {
       const url = `${this.apiURL}/${id}`;
-      return this.http.get<Animal>(url);
+      let jwt = this.authService.getToken();
+      jwt = "Bearer "+jwt;
+      let httpHeaders = new HttpHeaders({"Authorization":jwt}) 
+        return this.http.get<Animal>(url,{headers:httpHeaders});
       }
   
     trierAnimals(){
@@ -74,9 +67,35 @@ supprimerAnimal( prod: Animal){
       }
       updateAnimal(p:Animal)
       {
-      // console.log(p);
-      return this.http.put<Animal>(this.apiURL, p, httpOptions);
+        let jwt = this.authService.getToken();
+        jwt = "Bearer "+jwt;
+        let httpHeaders = new HttpHeaders({"Authorization":jwt}) 
+          return this.http.put<Animal>(this.apiURL, p, {headers:httpHeaders});
 
       }
-    
+     listeProprietaires():Proprietaire[] {
+        return this.proprietaires;
+      }
+      
+      /*consulterProprietaire(id:number): Proprietaire{    
+        this.proprietaire =  this.proprietaires.find(prop => prop.numP  == id);
+          return this.proprietaire;
+       }*/
+       consulterProprietaire(id: number): Observable<Proprietaire> {
+        const url = `${this.apiURL}/${id}`;
+        return this.http.get<Proprietaire>(url);
+        }
+        
+     rechercherParProprietaire(numP: number): Animal[]{
+      this.animalsRecherche = [];
+     
+      this.animals.forEach((cur, index) => {
+       if(numP == cur.proprietaire.numP) {
+           console.log("cur "+cur);
+          this.animalsRecherche.push(cur);
+           }
+     });
+     return this.animalsRecherche;
+     }
+      
 }

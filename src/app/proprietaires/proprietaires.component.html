@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="card shadow mb-4">
+    <div class="card-body">
+    <table class="table table-striped">
+    <tr> <th>numero</th><th>Nom proprietaire</th> <th>telephone</th>  </tr>
+    <tbody *ngFor="let proprietaire of proprietaires">
+    <tr >
+    <td>{{proprietaire.numP}}</td>
+    <td>{{proprietaire.nomP}}</td>
+    <td>{{proprietaire.telf}}</td>
+    <td><a  *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerProprietaire(proprietaire)">Supprimer</a></td>
+    <td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateProprietaire',proprietaire.numP]">Modifier</a></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>

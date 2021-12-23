@@ -2,26 +2,36 @@
     <div>
     <h2>Modifier un Animal :</h2>
     </div>
-    <form >
+    <form [formGroup]="animalForm" (submit)="updateAnimal()">
     <div  hidden class="col-sm-2 col-md-2 col-lg-2">
     <label >Numero Animal</label>
     <input readonly type="text" [(ngModel)]="currentAnimal.numA"
-    name="numA" class="form-control">
+    name="numA" class="form-control" formControlName="id">
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4" >
     <label >Nom Animal</label>
     <input type="text"[(ngModel)]= "currentAnimal.nomA"
-    name="nomA" class="form-control">
+    name="nomA" class="form-control" formControlName="name">
     </div>
     <div class="col-sm-2 col-md-2 col-lg-2">
     <label >Couleur Animal</label>
-    <input type="text" [(ngModel)]= "currentAnimal.couleur" name="couleurAnimal" class="form-control">
+    <input type="text" [(ngModel)]= "currentAnimal.couleur" name="couleurAnimal" class="form-control" formControlName="coul">
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
     <label >Date Naissance</label>
     <input type="date" [ngModel]="currentAnimal.dateNais| date: 'yyyy-MM-dd'"
-    (ngModelChange)=" currentAnimal.dateNais= $event" name="dateNais" class="form-control">
+    (ngModelChange)=" currentAnimal.dateNais= $event" name="dateNais" class="form-control" formControlName="date">
     </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Proprietaire</label>
+
+        <select class="form-control form-control-lg" id="proprietaire" name="proprietaire" [(ngModel)]= "currentAnimal.proprietaire.numP" formControlName="prop">    
+          <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire.numP"  >   
+                {{proprietaire.nomP}}
+          </option>
+      </select>                     
+</div>
+ 
     <div class="mt-2">
     <button type="submit" (click)="updateAnimal()" class="btn btn-success">Modifer</button>
     </div>

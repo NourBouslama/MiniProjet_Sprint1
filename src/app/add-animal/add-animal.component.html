@@ -2,23 +2,33 @@
     <div>
     <h2>Ajouter un Aniaml :</h2>
     </div>
-    <form >
+    <form  [formGroup]="animalForm" (submit)="addAnimal()">
         <div class="col-sm-2 col-md-2 col-lg-2">
         <label >numero Aniaml</label>
-        <input type="text" [(ngModel)]="newAnimal.numA" name="numA" class="form-control">
+        <input type="text"  name="numA" class="form-control" >
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4" >
         <label >Nom Animal</label>
-        <input type="text"[(ngModel)]= "newAnimal.nomA" name="nomA" class="form-control">
+        <input type="text" name="nomA" class="form-control" formControlName="name">
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
         <label >Couleur Animal</label>
-        <input type="text" [(ngModel)]= "newAnimal.couleur" name="couleur" class="form-control">
+        <input type="text"  name="couleur" class="form-control" formControlName="coul">
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
         <label >Date Naissance</label>
-        <input type="date" [(ngModel)]= "newAnimal.dateNais" name="dateNais" class="form-control">
+        <input type="date"  name="dateNais" class="form-control" formControlName="date">
         </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Proprietaire</label>
+
+              <select class="form-control form-control-lg" id="proprietaire" name="proprietaire"  formControlName="prop">  
+                <option value="">--Sélectionner un proprietatire--</option>      
+                <option *ngFor="let proprietaire of proprietaires" [ngValue]="proprietaire"  >   
+                      {{proprietaire.nomP}}
+                </option>
+            </select>                     
+      </div>
         <div class="mt-2">
         <button type="submit" (click)="addAnimal()" class="btn btn-success">Ajouter</button>
         <div>

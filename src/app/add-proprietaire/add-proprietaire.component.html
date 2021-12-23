@@ -1,0 +1,25 @@
+<div class="container">
+    <div>
+    <h2>Ajouter un Proprietaire :</h2>
+    </div>
+    <form >
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <label >numero Proprietaire</label>
+        <input type="text" [(ngModel)]="newProprietaire.numP" name="numP" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4" >
+        <label >Nom Proprietaire</label>
+        <input type="text"[(ngModel)]= "newProprietaire.nomP" name="nomP" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <label >Telephone Proprietaire</label>
+        <input type="number" [(ngModel)]= "newProprietaire.telf" name="telf" class="form-control">
+        </div>
+        <div class="mt-2">
+        <button type="submit" (click)="addProprietaire()" class="btn btn-success">Ajouter</button>
+        <div>
+            <h3>{{message}}</h3>
+        </div>
+        </div>
+        </form>
+        </div>

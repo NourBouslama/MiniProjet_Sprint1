@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      
+                        <label> <h4> Proprietaires</h4> </label>
+                          <select class="form-control form-control-lg" id="numP" name="proprietaire" [(ngModel)]="numP" (change)="onChange()">        
+                            <option *ngFor="let prop of proprietaires" value="{{prop.numP}}">   
+                                  {{prop.nomP}}
+                            </option>
+                        </select>                     
+    </div>
+    <br>
+      <div class="card shadow mb-4">                   
+        <div class="card-body"> 
+         <table class="table table-striped">
+            <tr> <th>Numéro</th><th>Nom</th> <th>Couleur</th>  <th>Date Naissance</th><th>Proprietaire</th> </tr>
+                  <tbody *ngFor="let animal of animals">
+                           <tr >
+                              <td>{{animal.numA}}</td>
+                              <td>{{animal.nomA}}</td>
+                              <td>{{animal.couleur}}</td>
+                              <td>{{animal.dateNais | date:'dd/MM/yyyy'}}</td>
+                              <td>{{animal.proprietaire.nomP}}</td>
+                              <td><a class="btn btn-danger" (click)="supprimerAnimal(animal)">Supprimer</a></td> 
+                              <td><a class="btn btn-success" [routerLink]="['/updateAnimal',animal.numA]">Modifier</a></td>
+    
+                            </tr>                                    
+                   </tbody>
+        </table>
+        </div>
+      </div>
+    </div> 

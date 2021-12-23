@@ -1,0 +1,24 @@
+<div class="container">
+    <div>
+    <h2>Modifier Proprietaire :</h2>
+    </div>
+    <form >
+    <div  hidden class="col-sm-2 col-md-2 col-lg-2">
+    <label >Numero Proprietaire</label>
+    <input readonly type="text" [(ngModel)]="currentProprietaire.numP"
+    name="numP" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4" >
+    <label >Nom Proprietaire</label>
+    <input type="text"[(ngModel)]= "currentProprietaire.nomP"
+    name="nomP" class="form-control">
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+    <label >Couleur Proprietaire</label>
+    <input type="text" [(ngModel)]= "currentProprietaire.telf" name="telf" class="form-control">
+    </div>
+    <div class="mt-2">
+    <button type="submit" (click)="updateProprietaire()" class="btn btn-success">Modifer</button>
+    </div>
+    </form>
+    </div>    
